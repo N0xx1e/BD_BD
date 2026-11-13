@@ -2,7 +2,6 @@
 EXEC dbo.usp_validar;
 EXEC dbo.usp_cargar;
 GO
--- Prueba del trigger de integridad (debe dar error 50001)
 BEGIN TRY
   INSERT dbo.caso (origen, ano, semana, edad) VALUES ('DENGUE', 1999, 60, 200);
 END TRY
