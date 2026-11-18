@@ -1,4 +1,4 @@
-CREATE PROCEDURE dbo.usp_validar
+CREATE OR ALTER PROCEDURE dbo.usp_validar
 AS
 BEGIN
   SET NOCOUNT ON;
