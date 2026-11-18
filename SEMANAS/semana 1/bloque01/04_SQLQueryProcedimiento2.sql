@@ -1,4 +1,4 @@
-CREATE PROCEDURE dbo.usp_cargar
+CREATE OR ALTER PROCEDURE dbo.usp_cargar
 AS
 BEGIN
   SET NOCOUNT ON;
@@ -8,7 +8,7 @@ BEGIN
     DELETE dbo.caso;
     INSERT dbo.caso (origen, departamento, provincia, distrito, enfermedad, ano, semana, edad, sexo)
     SELECT DISTINCT 'ZOONOSIS', departamento, provincia, distrito, enfermedad,
-           CAST(ano AS SMALLINT), CAST(semana AS TINYINT), TRY_CAST(NULLIF(edad,'') AS SMALLINT), dbo.fn_sexo(sexo)
+           TRY_CAST(ano AS SMALLINT), TRY_CAST(semana AS TINYINT), TRY_CAST(NULLIF(edad,'') AS SMALLINT), dbo.fn_sexo(sexo)
     FROM stg.zoonosis_raw
     WHERE TRY_CAST(ano AS INT) BETWEEN 2000 AND YEAR(GETDATE()) AND TRY_CAST(semana AS INT) BETWEEN 1 AND 53
       AND (NULLIF(edad,'') IS NULL OR TRY_CAST(edad AS INT) BETWEEN 0 AND 120);
@@ -18,7 +18,7 @@ BEGIN
     SET @fase = 2;
     INSERT dbo.caso (origen, departamento, provincia, distrito, enfermedad, ano, semana, edad, sexo)
     SELECT DISTINCT 'DENGUE', departamento, provincia, distrito, enfermedad,
-           CAST(ano AS SMALLINT), CAST(semana AS TINYINT), TRY_CAST(NULLIF(edad,'') AS SMALLINT), dbo.fn_sexo(sexo)
+           TRY_CAST(ano AS SMALLINT), TRY_CAST(semana AS TINYINT), TRY_CAST(NULLIF(edad,'') AS SMALLINT), dbo.fn_sexo(sexo)
     FROM stg.dengue_raw
     WHERE TRY_CAST(ano AS INT) BETWEEN 2000 AND YEAR(GETDATE()) AND TRY_CAST(semana AS INT) BETWEEN 1 AND 53
       AND (NULLIF(edad,'') IS NULL OR TRY_CAST(edad AS INT) BETWEEN 0 AND 120);
