@@ -1,5 +1,4 @@
-
-CREATE TRIGGER dbo.trg_caso_aud ON dbo.caso
+CREATE OR ALTER TRIGGER dbo.trg_caso_aud ON dbo.caso
 AFTER INSERT, UPDATE, DELETE AS
 BEGIN
   SET NOCOUNT ON;
